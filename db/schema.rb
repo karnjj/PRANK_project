@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_12_04_183656) do
+ActiveRecord::Schema[7.0].define(version: 2022_12_04_184133) do
   create_table "inventories", force: :cascade do |t|
     t.integer "item_id", null: false
     t.integer "price"
@@ -32,6 +32,17 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_04_183656) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "markets", force: :cascade do |t|
+    t.integer "item_id", null: false
+    t.integer "price"
+    t.integer "stock"
+    t.integer "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["item_id"], name: "index_markets_on_item_id"
+    t.index ["user_id"], name: "index_markets_on_user_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email"
     t.string "name"
@@ -44,4 +55,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_04_183656) do
   add_foreign_key "inventories", "items"
   add_foreign_key "inventories", "users"
   add_foreign_key "inventories", "users", column: "seller_id"
+  add_foreign_key "markets", "items"
+  add_foreign_key "markets", "users"
 end
