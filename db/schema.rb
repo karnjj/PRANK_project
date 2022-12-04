@@ -10,7 +10,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_12_04_181023) do
+ActiveRecord::Schema[7.0].define(version: 2022_12_04_183656) do
+  create_table "inventories", force: :cascade do |t|
+    t.integer "item_id", null: false
+    t.integer "price"
+    t.integer "qty"
+    t.integer "seller_id", null: false
+    t.integer "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["item_id"], name: "index_inventories_on_item_id"
+    t.index ["seller_id"], name: "index_inventories_on_seller_id"
+    t.index ["user_id"], name: "index_inventories_on_user_id"
+  end
+
   create_table "items", force: :cascade do |t|
     t.string "name"
     t.string "category"
@@ -28,4 +41,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_04_181023) do
     t.datetime "updated_at", null: false
   end
 
+  add_foreign_key "inventories", "items"
+  add_foreign_key "inventories", "users"
+  add_foreign_key "inventories", "users", column: "seller_id"
 end
