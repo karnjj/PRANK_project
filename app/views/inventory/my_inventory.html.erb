@@ -1,2 +1,40 @@
-<h1>Inventory#my_inventory</h1>
-<p>Find me in app/views/inventory/my_inventory.html.erb</p>
+<h1>My Inventory</h1>
+<div id="my_item">
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">Image</th>
+        <th scope="col">Name</th>
+        <th scope="col">Category</th>
+        <th scope="col">Price</th>
+        <th scope="col">Stock</th>
+        <th scope="col">Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @markets.each do |market| %>
+        <tr>
+          <td>
+            <%= image_tag rails_blob_path(market.item.image.variant(:thumb), disposition: "attachment"), class: 'rounded' %>
+          </td>
+          <td>
+            <%= market.item.name %>
+          </td>
+          <td>
+            <%= market.item.category %>
+          </td>
+          <td>
+            <%= market.price %>
+          </td>
+          <td>
+            <%= market.stock %>
+          </td>
+          <td>
+            <%= link_to "Delete", delete_inventory_path(market.id), data: { turbo_method: :delete }, class: 'btn btn-danger' %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+<%= link_to "Add Item", add_item_to_sell_path, class: 'btn btn-primary' %>
