@@ -13,20 +13,25 @@
 
   <div>
     <%= form.label :name, style: "display: block" %>
-    <%= form.text_field :name %>
+    <%= form.text_field :name, class: "form-control" %>
   </div>
 
   <div>
     <%= form.label :category, style: "display: block" %>
-    <%= form.text_field :category %>
+    <%= form.text_field :category, class: "form-control" %>
+  </div>
+
+  <div>
+    <%= form.label :image, style: "display: block" %>
+    <%= form.file_field :image, class: "form-control" %>
   </div>
 
   <div>
     <%= form.label :enable, style: "display: block" %>
-    <%= form.check_box :enable %>
+    <%= form.check_box :enable, class: "form-check-input" %>
   </div>
 
   <div>
-    <%= form.submit %>
+    <%= form.submit nil, class: "btn btn-primary" %>
   </div>
 <% end %>
