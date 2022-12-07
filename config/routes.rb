@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get 'inventory/my_inventory'
   resources :items
   resources :users
   get '/main/login'
