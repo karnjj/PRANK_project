@@ -22,6 +22,7 @@ class ItemsController < ApplicationController
   # POST /items or /items.json
   def create
     @item = Item.new(item_params)
+    @item.image.attach(item_params[:image])
 
     respond_to do |format|
       if @item.save
@@ -38,6 +39,7 @@ class ItemsController < ApplicationController
   def update
     respond_to do |format|
       if @item.update(item_params)
+        @item.image.attach(item_params[:image])
         format.html { redirect_to item_url(@item), notice: "Item was successfully updated." }
         format.json { render :show, status: :ok, location: @item }
       else
@@ -65,6 +67,6 @@ class ItemsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def item_params
-      params.require(:item).permit(:name, :category, :enable)
+      params.require(:item).permit(:name, :category, :image, :enable)
     end
 end

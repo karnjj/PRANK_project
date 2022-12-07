@@ -10,6 +10,11 @@
   </p>
 
   <p>
+    <strong>Image:</stong>
+    <%= image_tag rails_blob_path(item.image.variant(:thumb), disposition: "attachment") %>
+  </p>
+
+  <p>
     <strong>Enable:</strong>
     <%= item.enable %>
   </p>
