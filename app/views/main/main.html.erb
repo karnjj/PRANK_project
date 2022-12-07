@@ -1,0 +1,11 @@
+<h1> main </h1>
+<div class="btn-group-vertical" role="group">
+	<% @page_list.each do |page| %>
+		<div>
+			<%= button_to page, @page_link[@index], :method => :get,class: "btn btn-info"%>
+			<br>
+		</div>
+		<% @index = @index+1%>
+	<%end%>
+
+</div>

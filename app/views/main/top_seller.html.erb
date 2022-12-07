@@ -1,0 +1,5 @@
+<% @sorted_seller.each do |user| %>
+    <div>
+    	<%= User.find(user.id).name %>
+    </div>
+  <% end %>

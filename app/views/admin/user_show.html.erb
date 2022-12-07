@@ -1,0 +1,9 @@
+
+<%= render @user %>
+
+<div>
+<%= link_to "Edit this user", "/admin/user/edit/#{@user.id}" %> |
+<%= link_to "Back to users", "/admin/user" %>
+
+<%= button_to "Destroy this user", "/admin/user/destroy/#{@user.id}" %>
+</div>
