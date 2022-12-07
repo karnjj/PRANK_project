@@ -1,4 +1,5 @@
 class ItemsController < ApplicationController
+  before_action :is_admin?
   before_action :set_item, only: %i[ show edit update destroy ]
 
   # GET /items or /items.json
@@ -37,9 +38,12 @@ class ItemsController < ApplicationController
 
   # PATCH/PUT /items/1 or /items/1.json
   def update
+    image = item_params[:image]
     respond_to do |format|
       if @item.update(item_params)
-        @item.image.attach(item_params[:image])
+        if image
+          @item.image.attach(item_params[:image])
+        end
         format.html { redirect_to item_url(@item), notice: "Item was successfully updated." }
         format.json { render :show, status: :ok, location: @item }
       else
