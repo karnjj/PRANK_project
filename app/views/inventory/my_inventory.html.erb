@@ -30,6 +30,7 @@
             <%= market.stock %>
           </td>
           <td>
+            <%= link_to "Edit", edit_item_inventory_path(market.id), class: 'btn btn-warning' %>
             <%= link_to "Delete", delete_inventory_path(market.id), data: { turbo_method: :delete }, class: 'btn btn-danger' %>
           </td>
         </tr>

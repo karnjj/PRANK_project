@@ -32,4 +32,22 @@ class InventoryController < ApplicationController
   def add_item_to_sell
     @items = Item.where(:enable => true)
   end
+
+  def edit_item_inventory
+    @market = Market.find(params[:market_id])
+  end
+
+  def update_item_inventory
+    market_id = params[:market_id]
+
+    market = Market.find(market_id)
+
+    market.stock = params[:stock]
+
+    market.price = params[:price]
+
+    if market.save
+      redirect_to my_inventory_path
+    end
+  end
 end
