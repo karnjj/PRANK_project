@@ -1,0 +1,43 @@
+<h1>Add Item to Sell</h1>
+<div id="items">
+  <%= form_with url: add_inventory_path, data: {turbo: false} do |f| %>
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">Sell</th>
+          <th scope="col">Image</th>
+          <th scope="col">Name</th>
+          <th scope="col">Category</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @items.each do |item| %>
+          <tr>
+            <td>
+              <%= f.radio_button :item_id, item.id, class: 'form-check-input', :required => true %>
+            </td>
+            <td>
+              <%= image_tag rails_blob_path(item.image.variant(:thumb), disposition: "attachment"), class: 'rounded' %>
+            </td>
+            <td>
+              <%= item.name %>
+            </td>
+            <td>
+              <%= item.category %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+    <div>
+      <%= f.label :price, class: 'form-label' %>
+      <%= f.text_field :price, class: 'form-control', :required => true %>
+    </div>
+    <div>
+      <%= f.label :stock, class: 'form-label' %>
+      <%= f.text_field :stock, class: 'form-control', :required => true %>
+    </div>
+    <br/>
+    <%= f.submit :Add, class: 'btn btn-primary' %>
+  <% end %>
+</div>

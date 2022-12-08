@@ -1,4 +1,10 @@
 Rails.application.routes.draw do
+  get "my_inventory", to: "inventory#my_inventory", as: "my_inventory"
+  get "add_item_to_sell", to: "inventory#add_item_to_sell", as: "add_item_to_sell"
+  post "add_inventory", to: "inventory#add_inventory", as: "add_inventory"
+  get "edit_item_inventory/:market_id", to: "inventory#edit_item_inventory", as: "edit_item_inventory"
+  post "update_item_inventory/:market_id", to: "inventory#update_item_inventory", as: "update_item_inventory"
+  delete "delete_inventory/:market_id", to: "inventory#delete_inventory", as: "delete_inventory"
   resources :items
   resources :users
   get '/main/login'
