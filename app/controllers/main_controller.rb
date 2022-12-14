@@ -20,18 +20,18 @@ class MainController < ApplicationController
 	end
 
 	def top_seller
-		indexs = Struct.new(:qty, :id)
-		all_seller = User.where(user_type: 1)
+		indexs = Struct.new(:price, :qty,:date, :id, :name)
+		#all_seller = User.where(user_type: 1)
 		seller_sale = []
-		all_seller.each do |seller|
-			count = 0
-			all_inven = Inventory.where(seller_id: seller.id)
-			all_inven.each do |inven|
-				count = count + inven.qty
-			end
-			seller_sale.append( indexs.new(count,seller.id) )
+		Inventory.all.each do |invent|
+			seller_sale.append( indexs.new(invent.price,invent.qty,invent.created_at,invent.seller_id,User.find(invent.seller_id).username) )
 		end
-		@sorted_seller = seller_sale.sort_by { |p| [p.qty,p.id]}
+		seller_sale.append(indexs.new(10,5,User.find(2).created_at,6,4))
+		seller_sale.append(indexs.new(10,5,User.find(2).created_at,2,6))
+		#@sorted_seller = seller_sale.sort_by { |p| [p.qty,p.id]}
+		# @invent = seller_sale.sort_by { |p| [p.id,]}
+		 @invent = seller_sale.sort_by {|p| [p.id,p.date]}
+		#@invent = [[3,2],[4,7]]
 	end
 
 	def profile

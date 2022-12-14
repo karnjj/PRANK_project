@@ -1,5 +1,168 @@
-<% @sorted_seller.each do |user| %>
-    <div>
-    	<%= User.find(user.id).name %>
-    </div>
-  <% end %>
+<script src="/assets/jquery.js" type="text/javascript"></script>
+<script src="/assets/jquery_ujs.js" type="text/javascript"></script>
+
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.13.1/css/jquery.dataTables.css">
+<link rel="stylesheet" type="text/css" src="https://cdn.datatables.net/datetime/1.2.0/css/dataTables.dateTime.css">
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.13.1/css/jquery.dataTables.min.css">
+<link rel="stylesheet" type="text/css" src="https://cdn.datatables.net/datetime/1.2.0/css/dataTables.dateTime.min.css">
+
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.js"></script>
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
+<script type="text/javascript" charset="utf8" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.2/moment.min.js"></script>
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/datetime/1.2.0/js/dataTables.dateTime.min.js"></script>
+
+
+<%= javascript_tag do %>
+  var invent = <%= @invent.to_json.html_safe %>
+<% end %>
+
+<br>
+<table border="0" cellspacing="5" cellpadding="5">
+        <tbody><tr>
+            <td>Minimum date:</td>
+            <td><input type="text" id="min" name="min"></td>
+        </tr>
+        <tr>
+            <td>Maximum date:</td>
+            <td><input type="text" id="max" name="max"></td>
+        </tr>
+</tbody></table>
+<table id="myTable" style="display:none">
+    <thead>
+        <tr>
+            <th>Seller ID</th>
+            <th>Seller Name</th>
+            <th>Number of transaction (Quantity)</th>
+            <th>Amount of transaction price (Sales)</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>Row 1 Data 1</td>
+            <td>Row 1 Data 2</td>
+            <td>Row 1 Data 1</td>
+            <td>Row 1 Data 2</td>
+        </tr>
+        <tr>
+            <td>Row 2 Data 1</td>
+            <td>Row 2 Data 2</td>
+            <td>Row 2 Data 1</td>
+            <td>Row 2 Data 2</td>
+        </tr>
+    </tbody>
+</table>
+
+
+
+
+
+
+  <script type="text/javascript" >
+    function rows(id,name,qty,price){
+            this.id = id;
+            this.name = name;
+            this.qty = qty;
+            this.price = price;
+          }
+    function filter_row(data,min,max){
+        console.log(data)
+        var result = [];
+        for( let i = 0 ; i< data.length;i++){
+
+            
+            if (
+                    ( min === null && max === null ) ||
+                    ( min === null && data[i].date <= max ) ||
+                    ( min <= data[i].date   && max === null ) ||
+                    ( min <= data[i].date   && data[i].date <= max )
+                ){
+                console.log("Yes")
+                var resultlen = result.length;
+                if(resultlen!=0 && result[resultlen-1]["id"] == data[i].id){
+                    result[resultlen-1]["qty"] += data[i][qty];
+                    result[resultlen-1]["price"] += data[i][price];
+                }else{
+                    result.push(new rows(data[i].id,data[i].name,data[i].qty,data[i].price))
+                }
+            }
+        }
+        return result;
+    }
+    function reLoad(table,result){
+        console.log(result)
+        table.clear();
+        for(let i=0;i<result.length;i++){
+            table.row.add([result[i].id,result[i].name,result[i].qty,result[i].price ]);
+        }
+    }
+    // Guard against double DOM loads
+    var codeExecuted = false;
+
+    document.addEventListener('DOMContentLoaded', function(e) {
+
+      // Check if importmap stuff exisits without throwing an error.
+      // Then run main code w/ guard against multiple executions.
+      if ("importmapScriptsLoaded" in window) { 
+        
+        if (!codeExecuted) {
+        for( let i = 0 ; i< invent.length;i++){
+                    invent[i].date = new Date(invent[i].date);
+                }
+
+          $.noConflict();
+          console.log(invent)
+          var allRow = []
+
+          // Main code here
+          var minDate, maxDate;
+ 
+            // Custom filtering function which will search data in column four between two values
+            /*DataTable.ext.search.push(
+                function( settings, data, dataIndex ) {
+                    var min = minDate.val();
+                    var max = maxDate.val();
+                    var date = new Date( data[4] );
+                    return true;
+                   /* if (
+                        ( min === null && max === null ) ||
+                        ( min === null && date <= max ) ||
+                        ( min <= date   && max === null ) ||
+                        ( min <= date   && date <= max )
+                    ) {
+                        return true;
+                    }
+                    return false;
+                }
+            );*/
+
+
+
+          $(document).ready( function () {
+            minDate = new DateTime($('#min'), {
+                format: 'MMMM Do YYYY'
+            });
+            maxDate = new DateTime($('#max'), {
+                format: 'MMMM Do YYYY'
+            });
+
+             var table = $('#myTable').DataTable();
+            
+            $('#min, #max').on('change', function () {
+                var result = filter_row(invent,minDate.val(),maxDate.val());
+                reLoad(table,result);
+                table.draw();
+            });
+
+          $('#myTable').show();
+
+        } );
+
+          // Don't forget to bump guard for one-time only JS execution !!
+          codeExecuted = true; 
+        };  
+      };
+
+    });
+          
+
+  </script>
