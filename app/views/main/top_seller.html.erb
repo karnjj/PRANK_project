@@ -79,8 +79,9 @@
                 console.log("Yes")
                 var resultlen = result.length;
                 if(resultlen!=0 && result[resultlen-1]["id"] == data[i].id){
-                    result[resultlen-1]["qty"] += data[i][qty];
-                    result[resultlen-1]["price"] += data[i][price];
+                    console.log(result[resultlen-1].qty)
+                    result[resultlen-1].qty +=  data[i].qty;
+                    result[resultlen-1].price += data[i].price;
                 }else{
                     result.push(new rows(data[i].id,data[i].name,data[i].qty,data[i].price))
                 }
@@ -146,7 +147,9 @@
             });
 
              var table = $('#myTable').DataTable();
-            
+            var result = filter_row(invent,minDate.val(),maxDate.val());
+                reLoad(table,result);
+                table.draw();
             $('#min, #max').on('change', function () {
                 var result = filter_row(invent,minDate.val(),maxDate.val());
                 reLoad(table,result);
