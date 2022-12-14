@@ -1,0 +1,52 @@
+<% flash.each do |type,msg| %>
+  <p class='alert alert-danger' role='alert'>
+    <%= msg %>
+  </p>
+<% end %>
+<h1>My Market</h1>
+<div id="my_market">
+  <table id="my_market_table" class="display" style="width:100%">
+    <thead>
+      <tr>
+        <th>Image</th>
+        <th>Name</th>
+        <th>Category</th>
+        <th>Price</th>
+        <th>Stock</th>
+        <th>Buy</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @markets.each do |market| %>
+        <tr>
+          <td>
+            <%= image_tag rails_blob_path(market.item.image.variant(:thumb), disposition: "attachment"), class: 'rounded' %>
+          </td>
+          <td>
+            <%= market.item.name %>
+          </td>
+          <td>
+            <%= market.item.category %>
+          </td>
+          <td>
+            <%= market.price %>
+          </td>
+          <td>
+            <%= market.stock %>
+          </td>
+          <td style="width:160px;">
+            <%= form_with url: buy_item_market_path, data: {turbo: false} do |f| %>
+              <div>
+                <%= f.label :amount, class: 'form-label' %>
+                <%= f.number_field :amount, class: 'form-control', :required => true %>
+              </div>
+              <%= f.hidden_field :market_id, :value => market.id %>
+              <br/>
+              <%= f.submit :Buy, class: 'btn btn-success' %>
+            <% end %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
