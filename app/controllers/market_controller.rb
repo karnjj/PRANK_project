@@ -28,4 +28,8 @@ class MarketController < ApplicationController
       redirect_to my_market_path, notice: "จำนวนสินค้ามีไม่พอ"
     end
   end
+
+  def purchase_history
+    @inventories = Inventory.where(:user_id => 2)
+  end
 end
