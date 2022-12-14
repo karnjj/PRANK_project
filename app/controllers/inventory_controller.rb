@@ -1,6 +1,6 @@
 class InventoryController < ApplicationController
   def my_inventory
-    @markets = Market.where(:user_id => 2) # mock
+    @markets = Market.where(:user_id => session[:userid])
   end
 
   def add_inventory
@@ -9,7 +9,7 @@ class InventoryController < ApplicationController
     price = params[:price]
 
     market = Market.new
-    market.user_id = 2 # mock
+    market.user_id = session[:userid]
     market.item_id = item_id
     market.stock = stock
     market.price = price

@@ -4,7 +4,7 @@ class MarketController < ApplicationController
   end
 
   def buy_item_market
-    user_id = 2 # mock
+    user_id = session[:userid]
     market_id = params[:market_id]
     amount = params[:amount].to_i
 
@@ -30,6 +30,6 @@ class MarketController < ApplicationController
   end
 
   def purchase_history
-    @inventories = Inventory.where(:user_id => 2)
+    @inventories = Inventory.where(:user_id => session[:userid])
   end
 end
