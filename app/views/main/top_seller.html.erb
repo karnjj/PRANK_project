@@ -65,7 +65,7 @@
             this.price = price;
           }
     function filter_row(data,min,max){
-        console.log(data)
+        //console.log(data)
         var result = [];
         for( let i = 0 ; i< data.length;i++){
 
@@ -76,10 +76,10 @@
                     ( min <= data[i].date   && max === null ) ||
                     ( min <= data[i].date   && data[i].date <= max )
                 ){
-                console.log("Yes")
+                //console.log("Yes")
                 var resultlen = result.length;
                 if(resultlen!=0 && result[resultlen-1]["id"] == data[i].id){
-                    console.log(result[resultlen-1].qty)
+                    //console.log(result[resultlen-1].qty)
                     result[resultlen-1].qty +=  data[i].qty;
                     result[resultlen-1].price += data[i].price;
                 }else{
@@ -90,7 +90,7 @@
         return result;
     }
     function reLoad(table,result){
-        console.log(result)
+        //console.log(result)
         table.clear();
         for(let i=0;i<result.length;i++){
             table.row.add([result[i].id,result[i].name,result[i].qty,result[i].price ]);
@@ -111,30 +111,11 @@
                 }
 
           $.noConflict();
-          console.log(invent)
+          //console.log(invent)
           var allRow = []
 
           // Main code here
           var minDate, maxDate;
- 
-            // Custom filtering function which will search data in column four between two values
-            /*DataTable.ext.search.push(
-                function( settings, data, dataIndex ) {
-                    var min = minDate.val();
-                    var max = maxDate.val();
-                    var date = new Date( data[4] );
-                    return true;
-                   /* if (
-                        ( min === null && max === null ) ||
-                        ( min === null && date <= max ) ||
-                        ( min <= date   && max === null ) ||
-                        ( min <= date   && date <= max )
-                    ) {
-                        return true;
-                    }
-                    return false;
-                }
-            );*/
 
 
 

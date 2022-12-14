@@ -26,9 +26,9 @@ class MainController < ApplicationController
 		Inventory.all.each do |invent|
 			seller_sale.append( indexs.new(invent.price,invent.qty,invent.created_at,invent.seller_id,User.find(invent.seller_id).username) )
 		end
-		seller_sale.append(indexs.new(10,5,User.find(2).created_at,6,"prias"))
-		seller_sale.append(indexs.new(10,5,User.find(2).created_at,6,"prias"))
-		seller_sale.append(indexs.new(10,5,User.find(2).created_at,2,"Korss"))
+		#seller_sale.append(indexs.new(10,5,User.find(2).created_at,6,"prias"))
+		#seller_sale.append(indexs.new(10,5,User.find(2).created_at,6,"prias"))
+		#seller_sale.append(indexs.new(10,5,User.find(2).created_at,2,"Korss"))
 		#@sorted_seller = seller_sale.sort_by { |p| [p.qty,p.id]}
 		# @invent = seller_sale.sort_by { |p| [p.id,]}
 		 @invent = seller_sale.sort_by {|p| [p.id,p.date]}
