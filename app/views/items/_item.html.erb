@@ -3,20 +3,18 @@
     <strong>Name:</strong>
     <%= item.name %>
   </p>
-
   <p>
     <strong>Category:</strong>
     <%= item.category %>
   </p>
-
   <p>
     <strong>Image:</stong>
-    <%= image_tag rails_blob_path(item.image.variant(:thumb), disposition: "attachment") %>
+    <% if item.image.attached? %>
+      <%= image_tag rails_blob_path(item.image.variant(:thumb), disposition: "attachment") %>
+    <% end %>
   </p>
-
   <p>
     <strong>Enable:</strong>
     <%= item.enable %>
   </p>
-
 </div>

@@ -1,6 +1,6 @@
 <h1>Purchase History</h1>
 <div id="purchase-history">
-  <table class="table">
+  <table class="table" id="purchase-history-table">
     <thead>
       <tr>
         <th scope="col">Image</th>
@@ -16,7 +16,9 @@
       <% @inventories.each do |ivt| %>
         <tr>
           <td>
-            <%= image_tag rails_blob_path(ivt.item.image.variant(:thumb), disposition: "attachment"), class: 'rounded' %>
+            <% if ivt.item.image.attached? %>
+              <%= image_tag rails_blob_path(ivt.item.image.variant(:thumb), disposition: "attachment"), class: 'rounded' %>
+            <% end %>
           </td>
           <td>
             <%= ivt.item.name %>
