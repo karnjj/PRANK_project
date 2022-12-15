@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_12_04_190324) do
+ActiveRecord::Schema[7.0].define(version: 2022_12_15_173402) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -47,6 +47,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_04_190324) do
     t.integer "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "lock_version"
     t.index ["item_id"], name: "index_inventories_on_item_id"
     t.index ["seller_id"], name: "index_inventories_on_seller_id"
     t.index ["user_id"], name: "index_inventories_on_user_id"
@@ -58,6 +59,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_04_190324) do
     t.boolean "enable"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "lock_version"
   end
 
   create_table "markets", force: :cascade do |t|
@@ -67,6 +69,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_04_190324) do
     t.integer "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "lock_version"
     t.index ["item_id"], name: "index_markets_on_item_id"
     t.index ["user_id"], name: "index_markets_on_user_id"
   end
@@ -78,6 +81,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_04_190324) do
     t.string "password_digest"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "lock_version"
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"

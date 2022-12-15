@@ -37,14 +37,18 @@ class UsersController < ApplicationController
 
   # PATCH/PUT /users/1 or /users/1.json
   def update
+    begin
     respond_to do |format|
       if @user.update(user_params)
-        format.html { redirect_to :controller => "admin", :action => "user" }
+        format.html { redirect_to user_url(@user), notice: "User was successfully updated." }
         format.json { render :show, status: :ok, location: @user }
       else
         format.html { render :edit, status: :unprocessable_entity }
         format.json { render json: @user.errors, status: :unprocessable_entity }
       end
+    end
+    rescue
+      redirect_to user_url(@user), notice: "User fail to update due to lock_version"
     end
   end
 
@@ -67,7 +71,7 @@ class UsersController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def user_params
-    params.require(:user).permit(:email, :name, :user_type, :password)
+    params.require(:user).permit(:email, :name, :user_type, :password, :lock_version)
   end
 
   def check_permission

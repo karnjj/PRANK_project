@@ -39,6 +39,7 @@ class ItemsController < ApplicationController
   # PATCH/PUT /items/1 or /items/1.json
   def update
     image = item_params[:image]
+    begin
     respond_to do |format|
       if @item.update(item_params)
         if image
@@ -50,6 +51,9 @@ class ItemsController < ApplicationController
         format.html { render :edit, status: :unprocessable_entity }
         format.json { render json: @item.errors, status: :unprocessable_entity }
       end
+    end
+    rescue
+      redirect_to item_url(@item), notice: "Item fail to updated due to lock_version."
     end
   end
 
@@ -72,7 +76,7 @@ class ItemsController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def item_params
-    params.require(:item).permit(:name, :category, :image, :enable)
+    params.require(:item).permit(:name, :category, :image, :enable, :lock_version)
   end
 
   def check_permission
