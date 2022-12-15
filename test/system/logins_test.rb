@@ -30,7 +30,7 @@ class LoginsTest < ApplicationSystemTestCase
     end
 
     test "visit login / login error" do
-      visit "/main/login"
+      visit "login"
       # check if there is username / password
       assert_selector "label", text: "Username"
       assert_selector "label", text: "Password"
@@ -44,7 +44,7 @@ class LoginsTest < ApplicationSystemTestCase
 
     test "login to main & main_option" do
       # admin
-      visit "/main/login"
+      visit "login"
       fill_in "userid", with: "kross"
       fill_in "Password", with: "kross"
       click_on "Login"
@@ -58,7 +58,7 @@ class LoginsTest < ApplicationSystemTestCase
       assert_text "user_control"
       assert_text "item_control"
       # Seller
-      visit "/main/login"
+      visit "login"
       fill_in "userid", with: "krof"
       fill_in "Password", with: "krof"
       click_on "Login"
@@ -68,7 +68,7 @@ class LoginsTest < ApplicationSystemTestCase
       assert_text "my_inventory"
       assert_text "top_seller"
       # Buyer
-      visit "/main/login"
+      visit "login"
       fill_in "userid", with: "toy"
       fill_in "Password", with: "toy"
       click_on "Login"
@@ -79,14 +79,14 @@ class LoginsTest < ApplicationSystemTestCase
     end
 
     test "main access control" do
-      visit "/main/login"
-      visit "/main/main"
+      visit "login"
+      visit "main"
       assert_text "Username"
     end
 
     test "main navigate" do
       # admin
-      visit "/main/login"
+      visit "login"
       fill_in "userid", with: "kross"
       fill_in "Password", with: "kross"
       click_on "Login"
@@ -95,28 +95,28 @@ class LoginsTest < ApplicationSystemTestCase
       click_on "profile"
       assert_text "profile"
 
-      visit "/main/main"
+      visit "main"
       click_on "my_market"
       assert_text "My Market"
 
-      visit "/main/main"
+      visit "main"
       click_on "purchase_history"
       assert_text "Purchase History"
 
-      visit "/main/main"
+      visit "main"
       click_on "sale_history"
       assert_text "Sale History"
 
-      visit "/main/main"
+      visit "main"
       click_on "my_inventory"
       assert_text "My Inventory"
 
-      visit "/main/main"
+      visit "main"
       click_on "top_seller"
       assert_text "Minimum date"
 
       # Seller
-      visit "/main/login"
+      visit "login"
       fill_in "userid", with: "krof"
       fill_in "Password", with: "krof"
       click_on "Login"
@@ -126,20 +126,20 @@ class LoginsTest < ApplicationSystemTestCase
       click_on "profile"
       assert_text "profile"
 
-      visit "/main/main"
+      visit "main"
       click_on "sale_history"
       assert_text "Sale History"
 
-      visit "/main/main"
+      visit "main"
       click_on "my_inventory"
       assert_text "My Inventory"
 
 
-      visit "/main/main"
+      visit "main"
       click_on "top_seller"
       assert_text "Minimum date"
       # Buyer
-      visit "/main/login"
+      visit "login"
       fill_in "userid", with: "toy"
       fill_in "Password", with: "toy"
       click_on "Login"
@@ -148,17 +148,17 @@ class LoginsTest < ApplicationSystemTestCase
       click_on "profile"
       assert_text "profile"
       
-      visit "/main/main"
+      visit "main"
       click_on "my_market"
       assert_text "My Market"
 
-      visit "/main/main"
+      visit "main"
       click_on "purchase_history"
       assert_text "Purchase History"
     end
 
     test "Profile" do
-      visit "/main/login"
+      visit "login"
       # check if there is username / password
       fill_in "userid", with: "kross"
       fill_in "Password", with: "kross"
@@ -166,7 +166,33 @@ class LoginsTest < ApplicationSystemTestCase
       click_on "profile"
       assert_text "Email: kross"
       assert_text "Name: kross"
-      assert_text "User type: 0"
+      assert_text "User type: admin"
+      #expect(page).to have_css("input#password", type: "password")
+      #assert_selector "password", type: "password"
+    end
+
+    test "Profile password change" do
+      visit "login"
+      # check if there is username / password
+      fill_in "userid", with: "kross"
+      fill_in "Password", with: "kross"
+      click_on "Login"
+      click_on "profile"
+      fill_in "newpassword", with: "kross"
+      fill_in "newpasswordconfirm", with: "kross"
+      click_on "Change password"
+      assert_text "Password length must be more than 8 character"
+
+      fill_in "newpassword", with: "krosskross"
+      fill_in "newpasswordconfirm", with: "krosskross"
+      click_on "Change password"
+      assert_text "Password change successfully"
+
+      fill_in "newpassword", with: "krosskross"
+      fill_in "newpasswordconfirm", with: "krosssskross"
+      click_on "Change password"
+      assert_text "Newpassword and Confirmpassword is not the same"
+
       #expect(page).to have_css("input#password", type: "password")
       #assert_selector "password", type: "password"
     end
