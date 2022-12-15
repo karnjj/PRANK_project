@@ -6,21 +6,23 @@ class MainController < ApplicationController
 	def main
 		if(!session[:authen])
 			redirect_to :controller=>'main',:action=>'login'
+		else
+			user_type = User.find(session[:userid].to_i).user_type
+			@id = session[:userid].to_i
+			@index=0
+			if(user_type == 0) # admin
+				@page_list = ["profile","my_market","purchase_history","sale_history","my_inventory","top_seller","user_control","item_control"]
+				@page_link = ["/main/profile","/my_market","/purchase_history","/main/sale_history","/my_inventory","/main/top_seller","/admin/user","item_control"]
+			elsif(user_type == 1) # seller
+				@page_list = ["profile","sale_history","my_inventory","top_seller"]
+				@page_link = ["/main/profile","/main/sale_history","/my_inventory","/main/top_seller"]
+			else # buyer
+				@page_list = ["profile","my_market","purchase_history"]
+				@page_link = ["/main/profile","/my_market","/purchase_history"]
+			end
 		end
 
-		user_type = User.find(session[:userid].to_i).user_type
-		@id = session[:userid].to_i
-		@index=0
-		if(user_type == 0) # admin
-			@page_list = ["profile","my_market","purchase_history","sale_history","my_inventory","top_seller","user_control","item_control"]
-			@page_link = ["/main/profile","/my_market","/purchase_history","/main/sale_history","/my_inventory","/main/top_seller","/admin/user","item_control"]
-		elsif(user_type == 1) # seller
-			@page_list = ["profile","sale_history","my_inventory","top_seller"]
-			@page_link = ["/main/profile","/main/sale_history","/my_inventory","/main/top_seller"]
-		else # buyer
-			@page_list = ["profile","my_market","purchase_history"]
-			@page_link = ["/main/profile","/my_market","/purchase_history"]
-		end
+		
 	end
 
 	def top_seller
@@ -32,7 +34,7 @@ class MainController < ApplicationController
 		#all_seller = User.where(user_type: 1)
 		seller_sale = []
 		Inventory.all.each do |invent|
-			seller_sale.append( indexs.new(invent.price,invent.qty,invent.created_at,invent.seller_id,User.find(invent.seller_id).username) )
+			seller_sale.append( indexs.new(invent.price,invent.qty,invent.created_at,invent.seller_id,User.find(invent.seller_id).name) )
 		end
 		#seller_sale.append(indexs.new(10,5,User.find(2).created_at,6,"prias"))
 		#seller_sale.append(indexs.new(10,5,User.find(2).created_at,6,"prias"))
