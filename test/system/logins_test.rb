@@ -133,7 +133,7 @@ class LoginsTest < ApplicationSystemTestCase
 
 
       click_on "profile"
-      assert_text "profile"
+      assert_text "Profile"
 
 
       visit "/main"
