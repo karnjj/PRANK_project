@@ -12,7 +12,8 @@
       </ul>
     </div>
   <% end %>
-
+  
+  <%= form.hidden_field :lock_version %>
   <div>
     <%= form.label :email, style: "display: block" %>
     <%= form.text_field :email %>

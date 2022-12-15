@@ -48,7 +48,11 @@ class InventoryController < ApplicationController
 
     market.price = params[:price]
 
-    if market.save
+    begin
+      if market.save
+        redirect_to my_inventory_path
+      end
+    rescue
       redirect_to my_inventory_path
     end
   end
