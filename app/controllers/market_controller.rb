@@ -1,4 +1,6 @@
 class MarketController < ApplicationController
+  before_action :check_permission
+
   def my_market
     @markets = Market.joins(:item).where("items.enable = true AND stock > 0")
   end
@@ -31,5 +33,16 @@ class MarketController < ApplicationController
 
   def purchase_history
     @inventories = Inventory.where(:user_id => session[:userid])
+  end
+
+  private
+
+  def check_permission
+    if (is_authen? && (is_admin? || is_buyer?))
+      session[:authen] = session[:authen]
+    else
+      flash[:notice] = "ไม่มีสิทธิเข้าถึง"
+      redirect_to :controller => "main", :action => "main"
+    end
   end
 end

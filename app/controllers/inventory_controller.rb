@@ -1,4 +1,6 @@
 class InventoryController < ApplicationController
+  before_action :check_permission
+
   def my_inventory
     @markets = Market.where(:user_id => session[:userid])
   end
@@ -52,12 +54,13 @@ class InventoryController < ApplicationController
   end
 
   private
-  def check_admin
-      if(is_authen? && (is_admin? || is_seller?) )
-        session[:authen] = session[:authen]
-      else
-        flash[:notice] = "You don't have permission to access this page"
-        redirect_to :controller=>'main',:action=>'main'
-      end
+
+  def check_permission
+    if (is_authen? && (is_admin? || is_seller?))
+      session[:authen] = session[:authen]
+    else
+      flash[:notice] = "ไม่มีสิทธิเข้าถึง"
+      redirect_to :controller => "main", :action => "main"
+    end
   end
 end

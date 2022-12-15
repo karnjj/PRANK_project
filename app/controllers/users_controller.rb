@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_action :check_admin
+  before_action :check_permission
   before_action :set_user, only: %i[ show edit update destroy ]
 
   # GET /users or /users.json
@@ -39,7 +39,7 @@ class UsersController < ApplicationController
   def update
     respond_to do |format|
       if @user.update(user_params)
-        format.html { redirect_to :controller=>'admin',:action=>'user'}
+        format.html { redirect_to :controller => "admin", :action => "user" }
         format.json { render :show, status: :ok, location: @user }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -59,22 +59,23 @@ class UsersController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_user
-      @user = User.find(params[:id])
-    end
 
-    # Only allow a list of trusted parameters through.
-    def user_params
-      params.require(:user).permit(:email, :name, :user_type, :password)
+  # Use callbacks to share common setup or constraints between actions.
+  def set_user
+    @user = User.find(params[:id])
+  end
+
+  # Only allow a list of trusted parameters through.
+  def user_params
+    params.require(:user).permit(:email, :name, :user_type, :password)
+  end
+
+  def check_permission
+    if (is_authen? && is_admin?)
+      session[:authen] = session[:authen]
+    else
+      flash[:notice] = "ไม่มีสิทธิเข้าถึง"
+      redirect_to :controller => "main", :action => "main"
     end
-    
-    def check_admin
-      if(is_authen? && is_admin? )
-        session[:authen] = session[:authen]
-      else
-        flash[:notice] = "You don't have permission to access this page"
-        redirect_to :controller=>'main',:action=>'main'
-      end
   end
 end
