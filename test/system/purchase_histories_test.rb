@@ -7,6 +7,45 @@ class PurchaseHistoriesTest < ApplicationSystemTestCase
   #   assert_selector "h1", text: "PurchaseHistory"
   # end
 
+  test "visit purchase history by buyer" do
+    user = users(:three)
+
+    visit "/login"
+    fill_in "userid", with: user.email
+    fill_in "Password", with: "testpassword"
+    click_on "Login"
+    assert_text "main"
+
+    visit purchase_history_url
+    assert_text "Purchase History"
+  end
+
+  test "visit purchase history by seller should not allow" do
+    user = users(:two)
+
+    visit "/login"
+    fill_in "userid", with: user.email
+    fill_in "Password", with: "testpassword"
+    click_on "Login"
+    assert_text "main"
+
+    visit purchase_history_url
+    assert_text "ไม่มีสิทธิเข้าถึง"
+  end
+
+  test "visit purchase history by admin" do
+    user = users(:one)
+
+    visit "/login"
+    fill_in "userid", with: user.email
+    fill_in "Password", with: "testpassword"
+    click_on "Login"
+    assert_text "main"
+
+    visit purchase_history_url
+    assert_text "Purchase History"
+  end
+
   test "visit purchase history & see history" do
     user = users(:three)
 

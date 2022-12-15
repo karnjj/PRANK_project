@@ -7,6 +7,45 @@ class MyMarketsTest < ApplicationSystemTestCase
   #   assert_selector "h1", text: "MyMarket"
   # end
 
+  test "visit my market by buyer" do
+    # login as buyer
+    user = users(:three)
+    visit "/login"
+    fill_in "userid", with: user.email
+    fill_in "Password", with: "testpassword"
+    click_on "Login"
+    assert_text "main"
+
+    visit my_market_url
+    assert_text "My Market"
+  end
+
+  test "visit my market by seller" do
+    # login as seller
+    user = users(:two)
+    visit "/login"
+    fill_in "userid", with: user.email
+    fill_in "Password", with: "testpassword"
+    click_on "Login"
+    assert_text "main"
+
+    visit my_market_url
+    assert_text "ไม่มีสิทธิเข้าถึง"
+  end
+
+  test "visit my market by admin" do
+    # login as admin
+    user = users(:one)
+    visit "/login"
+    fill_in "userid", with: user.email
+    fill_in "Password", with: "testpassword"
+    click_on "Login"
+    assert_text "main"
+
+    visit my_market_url
+    assert_text "My Market"
+  end
+
   test "visit my market & see market" do
     # login as buyer
     user = users(:three)

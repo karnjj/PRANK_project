@@ -7,6 +7,48 @@ class MyInventoriesTest < ApplicationSystemTestCase
   #   assert_selector "h1", text: "MyInventory"
   # end
 
+  test "visit my inventory by seller" do
+    # login as seller
+    user = users(:two)
+
+    visit "/login"
+    fill_in "userid", with: user.email
+    fill_in "Password", with: "testpassword"
+    click_on "Login"
+    assert_text "main"
+
+    visit my_inventory_url
+    assert_text "My Inventory"
+  end
+
+  test "visit my inventory by buyer" do
+    # login as buyer
+    user = users(:three)
+
+    visit "/login"
+    fill_in "userid", with: user.email
+    fill_in "Password", with: "testpassword"
+    click_on "Login"
+    assert_text "main"
+
+    visit my_inventory_url
+    assert_text "ไม่มีสิทธิเข้าถึง"
+  end
+
+  test "visit my inventory by admin" do
+    # login as admin
+    user = users(:one)
+
+    visit "/login"
+    fill_in "userid", with: user.email
+    fill_in "Password", with: "testpassword"
+    click_on "Login"
+    assert_text "main"
+
+    visit my_inventory_url
+    assert_text "My Inventory"
+  end
+
   test "visit my inventory & see seller inventory" do
     # login as seller
     user = users(:two)
