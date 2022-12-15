@@ -15,7 +15,9 @@
       <% @markets.each do |market| %>
         <tr>
           <td>
-            <%= image_tag rails_blob_path(market.item.image.variant(:thumb), disposition: "attachment"), class: 'rounded' %>
+            <% if market.item.image.attached? %>
+              <%= image_tag rails_blob_path(market.item.image.variant(:thumb), disposition: "attachment"), class: 'rounded' %>
+            <% end %>
           </td>
           <td>
             <%= market.item.name %>
@@ -31,7 +33,7 @@
           </td>
           <td>
             <%= link_to "Edit", edit_item_inventory_path(market.id), class: 'btn btn-warning' %>
-            <%= link_to "Delete", delete_inventory_path(market.id), data: { turbo_method: :delete }, class: 'btn btn-danger' %>
+            <%= link_to "Delete", delete_inventory_path(market.id), method: :delete, data: { turbo_method: :delete }, class: 'btn btn-danger' %>
           </td>
         </tr>
       <% end %>
