@@ -11,3 +11,9 @@ two:
   price: 1
   stock: 1
   user: two
+
+three:
+  item: three
+  price: 1
+  stock: 3
+  user: two
