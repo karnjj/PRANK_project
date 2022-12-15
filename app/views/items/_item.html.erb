@@ -11,7 +11,11 @@
 
   <p>
     <strong>Image:</stong>
-    <%= image_tag rails_blob_path(item.image.variant(:thumb), disposition: "attachment") %>
+    <% begin %>
+            <%= image_tag rails_blob_path(ivt.item.image.variant(:thumb), disposition: "attachment"), class: 'rounded' %>
+            <% rescue %>
+            <%= "No image" %>
+            <% end %>
   </p>
 
   <p>

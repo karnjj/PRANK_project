@@ -16,7 +16,11 @@
       <% @inventories.each do |ivt| %>
         <tr>
           <td>
+            <% begin %>
             <%= image_tag rails_blob_path(ivt.item.image.variant(:thumb), disposition: "attachment"), class: 'rounded' %>
+            <% rescue %>
+            <%= "No image" %>
+            <% end %>
           </td>
           <td>
             <%= ivt.item.name %>

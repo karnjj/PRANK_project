@@ -13,7 +13,15 @@
 
   <p class="text-dark">
     <strong>User type:</strong>
-    <%= user.user_type %>
+    <% check =  user.user_type.to_i%>
+    <%case check%>
+    <%when 0 %>
+      <%= "admin" %>
+    <%when 1 %>
+      <%= "seller" %>
+    <%when 2 %>
+      <%= "buyer" %>
+    <% end %>
   </p>
 
 

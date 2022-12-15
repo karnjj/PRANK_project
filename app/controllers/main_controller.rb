@@ -12,13 +12,13 @@ class MainController < ApplicationController
 			@index=0
 			if(user_type == 0) # admin
 				@page_list = ["profile","my_market","purchase_history","sale_history","my_inventory","top_seller","user_control","item_control"]
-				@page_link = ["/main/profile","/my_market","/purchase_history","/main/sale_history","/my_inventory","/main/top_seller","/admin/user","item_control"]
+				@page_link = ["profile","my_market","purchase_history","sale_history","my_inventory","top_seller","users","items"]
 			elsif(user_type == 1) # seller
 				@page_list = ["profile","sale_history","my_inventory","top_seller"]
-				@page_link = ["/main/profile","/main/sale_history","/my_inventory","/main/top_seller"]
+				@page_link = ["profile","sale_history","my_inventory","top_seller"]
 			else # buyer
 				@page_list = ["profile","my_market","purchase_history"]
-				@page_link = ["/main/profile","/my_market","/purchase_history"]
+				@page_link = ["profile","my_market","purchase_history"]
 			end
 		end
 
