@@ -10,11 +10,11 @@
   </div>
   <div>
     <%= f.label :price, class: 'form-label' %>
-    <%= f.text_field :price, class: 'form-control', :required => true, :value => @market.price %>
+    <%= f.number_field :price, class: 'form-control', :required => true, :value => @market.price %>
   </div>
   <div>
     <%= f.label :stock, class: 'form-label' %>
-    <%= f.text_field :stock, class: 'form-control', :required => true, :value => @market.stock %>
+    <%= f.number_field :stock, class: 'form-control', :required => true, :value => @market.stock %>
   </div>
   <%= f.hidden_field :market_id, :value => @market.id %>
   <br/>

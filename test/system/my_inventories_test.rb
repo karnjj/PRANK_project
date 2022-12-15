@@ -21,7 +21,7 @@ class MyInventoriesTest < ApplicationSystemTestCase
     assert_text "My Inventory"
   end
 
-  test "visit my inventory by buyer" do
+  test "visit my inventory by buyer should not allow" do
     # login as buyer
     user = users(:three)
 
