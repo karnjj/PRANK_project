@@ -10,10 +10,10 @@
   <p>
     <strong>Image:</stong>
     <% begin %>
-            <%= image_tag rails_blob_path(ivt.item.image.variant(:thumb), disposition: "attachment"), class: 'rounded' %>
-            <% rescue %>
-            <%= "No image" %>
-     <% end %>
+      <%= image_tag rails_blob_path(item.image.variant(:thumb), disposition: "attachment"), class: 'rounded' %>
+      <% rescue %>
+      <%= "No image" %>
+    <% end %>
   </p>
   <p>
     <strong>Enable:</strong>
