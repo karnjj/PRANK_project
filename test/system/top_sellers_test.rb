@@ -61,7 +61,7 @@ class TopSellersTest < ApplicationSystemTestCase
       fill_in "Password", with: "toy"
       click_on "Login"
       visit "top_seller"
-      assert_text "You don't have permission to access this page"
+      assert_text "ไม่มีสิทธิเข้าถึง"
     end
     # Seller ID Seller Name Number of transaction (Quantity) Amount of transaction price (Sales)\n
     test "Sort by qty" do
