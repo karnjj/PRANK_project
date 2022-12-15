@@ -3,24 +3,20 @@
     <strong>Name:</strong>
     <%= item.name %>
   </p>
-
   <p>
     <strong>Category:</strong>
     <%= item.category %>
   </p>
-
   <p>
     <strong>Image:</stong>
     <% begin %>
             <%= image_tag rails_blob_path(ivt.item.image.variant(:thumb), disposition: "attachment"), class: 'rounded' %>
             <% rescue %>
             <%= "No image" %>
-            <% end %>
+     <% end %>
   </p>
-
   <p>
     <strong>Enable:</strong>
     <%= item.enable %>
   </p>
-
 </div>

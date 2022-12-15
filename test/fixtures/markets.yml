@@ -4,7 +4,7 @@ one:
   item: one
   price: 1
   stock: 1
-  user: one
+  user: two
 
 two:
   item: two

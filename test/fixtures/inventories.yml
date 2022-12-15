@@ -4,12 +4,12 @@ one:
   item: one
   price: 1
   qty: 1
-  seller: one
-  user: one
+  seller: two
+  user: three
 
 two:
   item: two
   price: 1
   qty: 1
   seller: two
-  user: two
+  user: three
