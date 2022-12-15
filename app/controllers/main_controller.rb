@@ -4,7 +4,8 @@ class MainController < ApplicationController
 	end
 
 	def main
-		if(!session[:authen])
+		if(!is_authen?)
+			flash[:notice] = "Please login before access"
 			redirect_to :controller=>'main',:action=>'login'
 		else
 			user_type = User.find(session[:userid].to_i).user_type
@@ -26,8 +27,9 @@ class MainController < ApplicationController
 	end
 
 	def top_seller
-		if(!session[:authen] || User.find(session[:userid].to_i).user_type == 2 )
-			redirect_to :controller=>'main',:action=>'login'
+		if(!is_authen? || is_buyer? )
+			flash[:notice] = "You don't have permission to access this page"
+			redirect_to :controller=>'main',:action=>'main'
 		end
 
 		indexs = Struct.new(:price, :qty,:date, :id, :name)
@@ -46,7 +48,8 @@ class MainController < ApplicationController
 	end
 
 	def profile
-		if(!session[:authen])
+		if(!is_authen?)
+			flash[:notice] = "Please login before access"
 			redirect_to :controller=>'main',:action=>'login'
 		end
 		@user = User.find(session[:userid].to_i)
@@ -68,7 +71,8 @@ class MainController < ApplicationController
 	end
 
 	def relay2
-		if(!session[:authen])
+		if(!is_authen?)
+			flash[:notice] = "Please login before access"
 			redirect_to :controller=>'main',:action=>'login'
 		else
 			npassword = params[:newpassword]
@@ -96,8 +100,9 @@ class MainController < ApplicationController
 	end
 
 	def sale_history
-		if(!session[:authen] || User.find(session[:userid].to_i).user_type == 2 )
-			redirect_to :controller=>'main',:action=>'login'
+		if(!is_authen? || is_buyer?)
+			flash[:notice] = "You don't have permission to access this page"
+			redirect_to :controller=>'main',:action=>'main'
 		end
 		@inventories = Inventory.where(:seller_id => session[:userid])
 	end

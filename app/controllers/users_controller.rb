@@ -1,4 +1,5 @@
 class UsersController < ApplicationController
+  before_action :check_admin
   before_action :set_user, only: %i[ show edit update destroy ]
 
   # GET /users or /users.json
@@ -67,4 +68,13 @@ class UsersController < ApplicationController
     def user_params
       params.require(:user).permit(:email, :name, :user_type, :password)
     end
+    
+    def check_admin
+      if(is_authen? && is_admin? )
+        session[:authen] = session[:authen]
+      else
+        flash[:notice] = "You don't have permission to access this page"
+        redirect_to :controller=>'main',:action=>'main'
+      end
+  end
 end

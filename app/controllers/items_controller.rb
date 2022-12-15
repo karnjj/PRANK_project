@@ -1,5 +1,5 @@
 class ItemsController < ApplicationController
-  before_action :is_admin?
+  before_action :check_admin
   before_action :set_item, only: %i[ show edit update destroy ]
 
   # GET /items or /items.json
@@ -73,4 +73,13 @@ class ItemsController < ApplicationController
     def item_params
       params.require(:item).permit(:name, :category, :image, :enable)
     end
+
+    def check_admin
+      if(is_authen? && is_admin? )
+        session[:authen] = session[:authen]
+      else
+        flash[:notice] = "You don't have permission to access this page"
+        redirect_to :controller=>'main',:action=>'main'
+      end
+  end
 end
