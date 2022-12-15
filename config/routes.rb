@@ -16,6 +16,7 @@ Rails.application.routes.draw do
   get '/admin/user/edit/:id' => 'admin#user_edit'
   post '/admin/user/destroy/:id' => 'admin#user_destroy'
   get '/main/top_seller'
+  get '/main/sale_history'
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Defines the root path route ("/")

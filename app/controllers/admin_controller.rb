@@ -1,4 +1,6 @@
 class AdminController < ApplicationController
+	before_action :check_admin
+
 	def user
 		@users = User.all
 	end
@@ -32,4 +34,12 @@ class AdminController < ApplicationController
 	def user_params
       params.require(:user).permit(:email, :name, :user_type, :password)
     end
+
+  def check_admin
+  		if(session[:authen] && User.find(session[:userid].to_i).user_type == 0 )
+  			session[:authen] = session[:authen]
+  		else
+  			redirect_to :controller=>'main',:action=>'login'
+  		end
+  end
 end

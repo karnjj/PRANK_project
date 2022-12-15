@@ -4,15 +4,19 @@ class MainController < ApplicationController
 	end
 
 	def main
+		if(!session[:authen])
+			redirect_to :controller=>'main',:action=>'login'
+		end
+
 		user_type = User.find(session[:userid].to_i).user_type
 		@id = session[:userid].to_i
 		@index=0
 		if(user_type == 0) # admin
 			@page_list = ["profile","my_market","purchase_history","sale_history","my_inventory","top_seller","user_control","item_control"]
-			@page_link = ["/main/profile","my_market","purchase_history","sale_history","my_inventory","top_seller","/admin/user","item_control"]
+			@page_link = ["/main/profile","my_market","purchase_history","sale_history","my_inventory","/main/top_seller","/admin/user","item_control"]
 		elsif(user_type == 1) # seller
 			@page_list = ["profile","sale_history","my_inventory","top_seller"]
-			@page_link = ["/main/profile","sale_history","my_inventory","top_seller"]
+			@page_link = ["/main/profile","/main/sale_history","my_inventory","/main/top_seller"]
 		else # buyer
 			@page_list = ["profile","my_market","purchase_history"]
 			@page_link = ["/main/profile","my_market","purchase_history"]
@@ -20,6 +24,10 @@ class MainController < ApplicationController
 	end
 
 	def top_seller
+		if(!session[:authen] || User.find(session[:userid].to_i).user_type == 2 )
+			redirect_to :controller=>'main',:action=>'login'
+		end
+
 		indexs = Struct.new(:price, :qty,:date, :id, :name)
 		#all_seller = User.where(user_type: 1)
 		seller_sale = []
@@ -36,6 +44,9 @@ class MainController < ApplicationController
 	end
 
 	def profile
+		if(!session[:authen])
+			redirect_to :controller=>'main',:action=>'login'
+		end
 		@user = User.find(session[:userid].to_i)
 	end
 
@@ -49,8 +60,14 @@ class MainController < ApplicationController
 			session[:authen] = true
 			redirect_to :controller=>'main',:action=>'main'
 		else
+			flash[:notice] = 'Username / Password is wrong'
 			redirect_to :controller=>'main',:action=>'login'
 		end
+	end
+
+	def sale_history
+		
+		@inventories = Inventory.where(:seller_id => session[:userid])
 	end
 
 end
