@@ -66,7 +66,9 @@ class MainController < ApplicationController
 	end
 
 	def sale_history
-		
+		if(!session[:authen] || User.find(session[:userid].to_i).user_type == 2 )
+			redirect_to :controller=>'main',:action=>'login'
+		end
 		@inventories = Inventory.where(:seller_id => session[:userid])
 	end
 
