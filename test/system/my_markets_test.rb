@@ -20,7 +20,7 @@ class MyMarketsTest < ApplicationSystemTestCase
     assert_text "My Market"
   end
 
-  test "visit my market by seller" do
+  test "visit my market by seller should not allow" do
     # login as seller
     user = users(:two)
     visit "/login"
