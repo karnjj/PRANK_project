@@ -1,12 +1,10 @@
 <script src="/assets/jquery.js" type="text/javascript"></script>
 <script src="/assets/jquery_ujs.js" type="text/javascript"></script>
 
-<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.13.1/css/jquery.dataTables.css">
 <link rel="stylesheet" type="text/css" src="https://cdn.datatables.net/datetime/1.2.0/css/dataTables.dateTime.css">
 <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.13.1/css/jquery.dataTables.min.css">
 <link rel="stylesheet" type="text/css" src="https://cdn.datatables.net/datetime/1.2.0/css/dataTables.dateTime.min.css">
 
-<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.js"></script>
 <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
 <script type="text/javascript" charset="utf8" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.2/moment.min.js"></script>
 <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/datetime/1.2.0/js/dataTables.dateTime.min.js"></script>
@@ -64,17 +62,17 @@
             this.qty = qty;
             this.price = price;
           }
-    function filter_row(data,min,max){
+    function filter_row(data,mins,maxs){
         //console.log(data)
         var result = [];
         for( let i = 0 ; i< data.length;i++){
 
             
             if (
-                    ( min === null && max === null ) ||
-                    ( min === null && data[i].date <= max ) ||
-                    ( min <= data[i].date   && max === null ) ||
-                    ( min <= data[i].date   && data[i].date <= max )
+                    ( mins === null && maxs === null ) ||
+                    ( mins === null && data[i].date <= maxs ) ||
+                    ( mins <= data[i].date   && maxs === null ) ||
+                    ( mins <= data[i].date   && data[i].date <= maxs )
                 ){
                 //console.log("Yes")
                 var resultlen = result.length;
@@ -90,7 +88,6 @@
         return result;
     }
     function reLoad(table,result){
-        //console.log(result)
         table.clear();
         for(let i=0;i<result.length;i++){
             table.row.add([result[i].id,result[i].name,result[i].qty,result[i].price ]);
@@ -110,7 +107,7 @@
                     invent[i].date = new Date(invent[i].date);
                 }
 
-          $.noConflict();
+          //$.noConflict();
           //console.log(invent)
           var allRow = []
 
@@ -132,9 +129,11 @@
                 reLoad(table,result);
                 table.draw();
             $('#min, #max').on('change', function () {
+                console.log("TEST")
                 var result = filter_row(invent,minDate.val(),maxDate.val());
                 reLoad(table,result);
                 table.draw();
+                console.log("Done")
             });
 
           $('#myTable').show();

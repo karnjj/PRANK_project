@@ -10,6 +10,7 @@ class MyInventoriesTest < ApplicationSystemTestCase
   test "visit my inventory & see seller inventory" do
     # login as seller
     user = users(:two)
+
     visit "/login"
     fill_in "userid", with: user.email
     fill_in "Password", with: "testpassword"
@@ -25,6 +26,7 @@ class MyInventoriesTest < ApplicationSystemTestCase
   test "see all inventory item detail" do
     # login as seller
     user = users(:two)
+
     visit "/login"
     fill_in "userid", with: user.email
     fill_in "Password", with: "testpassword"
@@ -42,6 +44,7 @@ class MyInventoriesTest < ApplicationSystemTestCase
   test "delete inventory button" do
     # login as seller
     user = users(:two)
+
     visit "/login"
     fill_in "userid", with: user.email
     fill_in "Password", with: "testpassword"
@@ -60,6 +63,7 @@ class MyInventoriesTest < ApplicationSystemTestCase
   test "edit inventory button" do
     # login as seller
     user = users(:two)
+
     visit "/login"
     fill_in "userid", with: user.email
     fill_in "Password", with: "testpassword"
@@ -74,6 +78,7 @@ class MyInventoriesTest < ApplicationSystemTestCase
   test "add inventory button" do
     # login as seller
     user = users(:two)
+
     visit "/login"
     fill_in "userid", with: user.email
     fill_in "Password", with: "testpassword"

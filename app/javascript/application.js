@@ -1,7 +1,9 @@
 // Configure your import map in config/importmap.rb. Read more: https://github.com/rails/importmap-rails
+
 import { Turbo } from "@hotwired/turbo-rails";
 Turbo.session.drive = false;
 import "controllers";
+
 
 import "jquery_ujs";
 window.importmapScriptsLoaded = true;
@@ -20,3 +22,4 @@ $(".dataTables_filter input")
     var value = $(this).val();
     table.column(2).search(value).draw();
   });
+
