@@ -18,7 +18,7 @@
     </thead>
     <tbody>
       <% @markets.each do |market| %>
-        <tr>
+        <tr id="<%= "market-item-#{market.id}" %>">
           <td>
             <% if market.item.image.attached? %>
               <%= image_tag rails_blob_path(market.item.image.variant(:thumb), disposition: "attachment"), class: 'rounded' %>
