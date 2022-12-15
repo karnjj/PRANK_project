@@ -36,10 +36,11 @@ class AdminController < ApplicationController
     end
 
   def check_admin
-  		if(session[:authen] && User.find(session[:userid].to_i).user_type == 0 )
+  		if(is_authen? && is_admin? )
   			session[:authen] = session[:authen]
   		else
-  			redirect_to :controller=>'main',:action=>'login'
+  			flash[:notice] = "You don't have permission to access this page"
+  			redirect_to :controller=>'main',:action=>'main'
   		end
   end
 end

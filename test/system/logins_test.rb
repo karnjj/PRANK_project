@@ -151,9 +151,23 @@ class LoginsTest < ApplicationSystemTestCase
       visit "/main/main"
       click_on "my_market"
       assert_text "My Market"
-      
+
       visit "/main/main"
       click_on "purchase_history"
       assert_text "Purchase History"
+    end
+
+    test "Profile" do
+      visit "/main/login"
+      # check if there is username / password
+      fill_in "userid", with: "kross"
+      fill_in "Password", with: "kross"
+      click_on "Login"
+      click_on "profile"
+      assert_text "Email: kross"
+      assert_text "Name: kross"
+      assert_text "User type: 0"
+      #expect(page).to have_css("input#password", type: "password")
+      #assert_selector "password", type: "password"
     end
 end

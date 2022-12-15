@@ -50,4 +50,14 @@ class InventoryController < ApplicationController
       redirect_to my_inventory_path
     end
   end
+
+  private
+  def check_admin
+      if(is_authen? && (is_admin? || is_seller?) )
+        session[:authen] = session[:authen]
+      else
+        flash[:notice] = "You don't have permission to access this page"
+        redirect_to :controller=>'main',:action=>'main'
+      end
+  end
 end

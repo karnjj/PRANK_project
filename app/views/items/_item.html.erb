@@ -9,9 +9,11 @@
   </p>
   <p>
     <strong>Image:</stong>
-    <% if item.image.attached? %>
-      <%= image_tag rails_blob_path(item.image.variant(:thumb), disposition: "attachment") %>
-    <% end %>
+    <% begin %>
+            <%= image_tag rails_blob_path(ivt.item.image.variant(:thumb), disposition: "attachment"), class: 'rounded' %>
+            <% rescue %>
+            <%= "No image" %>
+     <% end %>
   </p>
   <p>
     <strong>Enable:</strong>

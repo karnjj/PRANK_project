@@ -10,16 +10,18 @@ Rails.application.routes.draw do
   delete "delete_inventory/:market_id", to: "inventory#delete_inventory", as: "delete_inventory"
   resources :items
   resources :users
-  get "/main/login"
-  post "/main/relay"
-  get "/main/main"
-  get "/main/profile"
-  get "/admin/user"
-  get "/admin/user/:id" => "admin#user_show"
-  get "/admin/user/edit/:id" => "admin#user_edit"
-  post "/admin/user/destroy/:id" => "admin#user_destroy"
-  get "/main/top_seller"
-  get "/main/sale_history"
+  get 'login' => 'main#login'
+  post '/main/relay'
+  get 'main' => 'main#main'
+  get 'profile' => 'main#profile'
+  get 'user' => 'admin#user'
+  get 'user/:id' => 'admin#user_show'
+  get 'user/edit/:id' => 'admin#user_edit'
+  post 'user/destroy/:id' => 'admin#user_destroy'
+  get 'top_seller' => 'main#top_seller'
+  get 'sale_history' => 'main#sale_history'
+  post '/main/relay2'
+
 
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
