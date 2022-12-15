@@ -10,7 +10,7 @@ class PurchaseHistoriesTest < ApplicationSystemTestCase
   test "visit purchase history & see history" do
     user = users(:three)
 
-    visit "/main/login"
+    visit "/login"
     fill_in "userid", with: user.email
     fill_in "Password", with: "testpassword"
     click_on "Login"
@@ -25,7 +25,7 @@ class PurchaseHistoriesTest < ApplicationSystemTestCase
   test "see Image Name Category Price Amount Seller Name and Purchase At fields" do
     user = users(:three)
 
-    visit "/main/login"
+    visit "/login"
     fill_in "userid", with: user.email
     fill_in "Password", with: "testpassword"
     click_on "Login"
@@ -44,7 +44,7 @@ class PurchaseHistoriesTest < ApplicationSystemTestCase
   test "see item that not enabled" do
     user = users(:three)
 
-    visit "/main/login"
+    visit "/login"
     fill_in "userid", with: user.email
     fill_in "Password", with: "testpassword"
     click_on "Login"

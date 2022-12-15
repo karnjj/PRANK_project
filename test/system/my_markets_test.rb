@@ -10,7 +10,7 @@ class MyMarketsTest < ApplicationSystemTestCase
   test "visit my market & see market" do
     # login as buyer
     user = users(:three)
-    visit "/main/login"
+    visit "/login"
     fill_in "userid", with: user.email
     fill_in "Password", with: "testpassword"
     click_on "Login"
@@ -25,7 +25,7 @@ class MyMarketsTest < ApplicationSystemTestCase
   test "see all market item detail" do
     # login as buyer
     user = users(:three)
-    visit "/main/login"
+    visit "/login"
     fill_in "userid", with: user.email
     fill_in "Password", with: "testpassword"
     click_on "Login"
@@ -42,7 +42,7 @@ class MyMarketsTest < ApplicationSystemTestCase
   test "search by category" do
     # login as buyer
     user = users(:three)
-    visit "/main/login"
+    visit "/login"
     fill_in "userid", with: user.email
     fill_in "Password", with: "testpassword"
     click_on "Login"
@@ -78,7 +78,7 @@ class MyMarketsTest < ApplicationSystemTestCase
   test "hide market item if stock equal to zero" do
     # login as buyer
     user = users(:three)
-    visit "/main/login"
+    visit "/login"
     fill_in "userid", with: user.email
     fill_in "Password", with: "testpassword"
     click_on "Login"
@@ -103,7 +103,7 @@ class MyMarketsTest < ApplicationSystemTestCase
   test "no error if no item in market" do
     # login as buyer
     user = users(:three)
-    visit "/main/login"
+    visit "/login"
     fill_in "userid", with: user.email
     fill_in "Password", with: "testpassword"
     click_on "Login"
@@ -120,7 +120,7 @@ class MyMarketsTest < ApplicationSystemTestCase
   test "buy item" do
     # login as buyer
     user = users(:three)
-    visit "/main/login"
+    visit "/login"
     fill_in "userid", with: user.email
     fill_in "Password", with: "testpassword"
     click_on "Login"
@@ -149,7 +149,7 @@ class MyMarketsTest < ApplicationSystemTestCase
   test "buy more item than stock has" do
     # login as buyer
     user = users(:three)
-    visit "/main/login"
+    visit "/login"
     fill_in "userid", with: user.email
     fill_in "Password", with: "testpassword"
     click_on "Login"
