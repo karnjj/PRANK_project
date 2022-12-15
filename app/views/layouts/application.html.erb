@@ -22,6 +22,11 @@
 
   <body>
     <div class='container'>
+      <% if !current_page?("/login") and !current_page?("/main") %>
+        <div class="d-flex justify-content-end pt-3">
+          <%= link_to "Main Page", "/main", class: "btn btn-secondary" %>
+        </div>
+      <% end %>
       <%= yield %>
     </div>
   </body>
