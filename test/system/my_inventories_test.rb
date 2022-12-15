@@ -10,7 +10,8 @@ class MyInventoriesTest < ApplicationSystemTestCase
   test "visit my inventory & see seller inventory" do
     # login as seller
     user = users(:two)
-    visit "login"
+
+    visit "/login"
     fill_in "userid", with: user.email
     fill_in "Password", with: "testpassword"
     click_on "Login"
@@ -19,13 +20,14 @@ class MyInventoriesTest < ApplicationSystemTestCase
     visit my_inventory_url
     assert_text "My Inventory"
     assert_selector "table"
-    assert_selector "tr", count: 3 # header + 2 item
+    assert_selector "tr", count: 4 # 3 item + 1 header
   end
 
   test "see all inventory item detail" do
     # login as seller
     user = users(:two)
-    visit "login"
+
+    visit "/login"
     fill_in "userid", with: user.email
     fill_in "Password", with: "testpassword"
     click_on "Login"
@@ -42,7 +44,8 @@ class MyInventoriesTest < ApplicationSystemTestCase
   test "delete inventory button" do
     # login as seller
     user = users(:two)
-    visit "login"
+
+    visit "/login"
     fill_in "userid", with: user.email
     fill_in "Password", with: "testpassword"
     click_on "Login"
@@ -50,17 +53,18 @@ class MyInventoriesTest < ApplicationSystemTestCase
 
     visit my_inventory_url
 
-    assert_selector "tr", count: 3 # header + 2 item
+    assert_selector "tr", count: 4 # 3 item + 1 header
     # delete item1
     click_on "Delete", match: :first
 
-    assert_selector "tr", count: 2 # header + 1 item
+    assert_selector "tr", count: 3 # 2 item + 1 header
   end
 
   test "edit inventory button" do
     # login as seller
     user = users(:two)
-    visit "login"
+
+    visit "/login"
     fill_in "userid", with: user.email
     fill_in "Password", with: "testpassword"
     click_on "Login"
@@ -74,7 +78,8 @@ class MyInventoriesTest < ApplicationSystemTestCase
   test "add inventory button" do
     # login as seller
     user = users(:two)
-    visit "login"
+
+    visit "/login"
     fill_in "userid", with: user.email
     fill_in "Password", with: "testpassword"
     click_on "Login"

@@ -30,7 +30,8 @@ class LoginsTest < ApplicationSystemTestCase
     end
 
     test "visit login / login error" do
-      visit "login"
+
+      visit "/login"
       # check if there is username / password
       assert_selector "label", text: "Username"
       assert_selector "label", text: "Password"
@@ -44,7 +45,7 @@ class LoginsTest < ApplicationSystemTestCase
 
     test "login to main & main_option" do
       # admin
-      visit "login"
+      visit "/login"
       fill_in "userid", with: "kross"
       fill_in "Password", with: "kross"
       click_on "Login"
@@ -58,7 +59,8 @@ class LoginsTest < ApplicationSystemTestCase
       assert_text "user_control"
       assert_text "item_control"
       # Seller
-      visit "login"
+
+      visit "/login"
       fill_in "userid", with: "krof"
       fill_in "Password", with: "krof"
       click_on "Login"
@@ -68,7 +70,7 @@ class LoginsTest < ApplicationSystemTestCase
       assert_text "my_inventory"
       assert_text "top_seller"
       # Buyer
-      visit "login"
+      visit "/login"
       fill_in "userid", with: "toy"
       fill_in "Password", with: "toy"
       click_on "Login"
@@ -79,14 +81,18 @@ class LoginsTest < ApplicationSystemTestCase
     end
 
     test "main access control" do
-      visit "login"
-      visit "main"
+
+      visit "/login"
+      visit "/main"
+
       assert_text "Username"
     end
 
     test "main navigate" do
       # admin
-      visit "login"
+
+      visit "/login"
+
       fill_in "userid", with: "kross"
       fill_in "Password", with: "kross"
       click_on "Login"
@@ -95,28 +101,31 @@ class LoginsTest < ApplicationSystemTestCase
       click_on "profile"
       assert_text "profile"
 
-      visit "main"
+
+      visit "/main"
       click_on "my_market"
       assert_text "My Market"
 
-      visit "main"
+      visit "/main"
       click_on "purchase_history"
       assert_text "Purchase History"
 
-      visit "main"
+      visit "/main"
       click_on "sale_history"
       assert_text "Sale History"
 
-      visit "main"
+      visit "/main"
       click_on "my_inventory"
       assert_text "My Inventory"
 
-      visit "main"
+      visit "/main"
       click_on "top_seller"
       assert_text "Minimum date"
 
       # Seller
-      visit "login"
+
+      visit "/login"
+
       fill_in "userid", with: "krof"
       fill_in "Password", with: "krof"
       click_on "Login"
@@ -126,20 +135,24 @@ class LoginsTest < ApplicationSystemTestCase
       click_on "profile"
       assert_text "profile"
 
-      visit "main"
+
+      visit "/main"
       click_on "sale_history"
       assert_text "Sale History"
 
-      visit "main"
+      visit "/main"
+
       click_on "my_inventory"
       assert_text "My Inventory"
 
 
-      visit "main"
+
+      visit "/main"
       click_on "top_seller"
       assert_text "Minimum date"
       # Buyer
-      visit "login"
+      visit "/login"
+
       fill_in "userid", with: "toy"
       fill_in "Password", with: "toy"
       click_on "Login"
@@ -148,17 +161,21 @@ class LoginsTest < ApplicationSystemTestCase
       click_on "profile"
       assert_text "profile"
       
-      visit "main"
+
+      visit "/main"
       click_on "my_market"
       assert_text "My Market"
 
-      visit "main"
+      visit "/main"
+
       click_on "purchase_history"
       assert_text "Purchase History"
     end
 
     test "Profile" do
-      visit "login"
+
+      visit "/login"
+
       # check if there is username / password
       fill_in "userid", with: "kross"
       fill_in "Password", with: "kross"

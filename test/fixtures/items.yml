@@ -2,10 +2,15 @@
 
 one:
   name: item1
-  category: MyString
+  category: categoryA
   enable: true
 
 two:
   name: item2
-  category: MyString
+  category: categoryA
   enable: false
+
+three:
+  name: item3
+  category: categoryB
+  enable: true
