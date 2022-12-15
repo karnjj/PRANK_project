@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+  get "my_market", to: "market#my_market", as: "my_market"
+  post "buy_item_market", to: "market#buy_item_market", as: "buy_item_market"
+  get "purchase_history", to: "market#purchase_history", as: "purchase_purchase_history"
   get "my_inventory", to: "inventory#my_inventory", as: "my_inventory"
   get "add_item_to_sell", to: "inventory#add_item_to_sell", as: "add_item_to_sell"
   post "add_inventory", to: "inventory#add_inventory", as: "add_inventory"
@@ -17,6 +20,7 @@ Rails.application.routes.draw do
   post '/admin/user/destroy/:id' => 'admin#user_destroy'
   get '/main/top_seller'
   get '/main/sale_history'
+
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Defines the root path route ("/")

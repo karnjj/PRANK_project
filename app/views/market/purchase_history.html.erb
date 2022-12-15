@@ -1,0 +1,43 @@
+<h1>Purchase History</h1>
+<div id="purchase-history">
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">Image</th>
+        <th scope="col">Name</th>
+        <th scope="col">Category</th>
+        <th scope="col">Price</th>
+        <th scope="col">Amount</th>
+        <th scope="col">Seller Name</th>
+        <th scope="col">Purchase At</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @inventories.each do |ivt| %>
+        <tr>
+          <td>
+            <%= image_tag rails_blob_path(ivt.item.image.variant(:thumb), disposition: "attachment"), class: 'rounded' %>
+          </td>
+          <td>
+            <%= ivt.item.name %>
+          </td>
+          <td>
+            <%= ivt.item.category %>
+          </td>
+          <td>
+            <%= ivt.price %>
+          </td>
+          <td>
+            <%= ivt.qty %>
+          </td>
+          <td>
+            <%= ivt.seller.name %>
+          </td>
+          <td>
+            <%= ivt.created_at %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
