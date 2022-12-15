@@ -12,7 +12,7 @@
       </thead>
       <tbody>
         <% @items.each do |item| %>
-          <tr>
+          <tr id="<%= "add-item-#{item.id}" %>">
             <td>
               <%= f.radio_button :item_id, item.id, class: 'form-check-input', :required => true %>
             </td>
