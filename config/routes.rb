@@ -20,6 +20,7 @@ Rails.application.routes.draw do
   post '/admin/user/destroy/:id' => 'admin#user_destroy'
   get '/main/top_seller'
   get '/main/sale_history'
+  post '/main/relay2'
 
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 

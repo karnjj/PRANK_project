@@ -67,6 +67,34 @@ class MainController < ApplicationController
 		end
 	end
 
+	def relay2
+		if(!session[:authen])
+			redirect_to :controller=>'main',:action=>'login'
+		else
+			npassword = params[:newpassword]
+			npasswordconfirm = params[:newpasswordconfirm]
+			if(npassword == npasswordconfirm)
+				if(npassword.length >= 8)
+					users = User.find(session[:userid].to_i)
+					users.password = npassword
+					if(users.save)
+						flash[:notice] = 'Password change successfully'
+						redirect_to :controller=>'main',:action=>'profile'
+					else
+						flash[:notice] = 'Password change failed'
+						redirect_to :controller=>'main',:action=>'profile'
+					end
+				else
+					flash[:notice] = 'Password length must be more than 8 character'
+					redirect_to :controller=>'main',:action=>'profile'
+				end
+			else
+				flash[:notice] = 'Newpassword and Confirmpassword is not the same'
+				redirect_to :controller=>'main',:action=>'profile'
+			end
+		end
+	end
+
 	def sale_history
 		if(!session[:authen] || User.find(session[:userid].to_i).user_type == 2 )
 			redirect_to :controller=>'main',:action=>'login'
