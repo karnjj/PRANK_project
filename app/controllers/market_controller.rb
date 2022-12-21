@@ -21,7 +21,7 @@ class MarketController < ApplicationController
         inventory.price = market.price
         inventory.qty = amount
         inventory.seller_id = market.user_id
-        inventory.user_id = 2
+        inventory.user_id = user_id
         if inventory.save
           redirect_to my_market_path
         end
